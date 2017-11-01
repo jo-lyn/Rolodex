@@ -22,6 +22,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import guitests.RolodexGuiTest;
 import javafx.util.Pair;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -48,7 +49,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class RolodexParserTest {
+public class RolodexParserTest extends RolodexGuiTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
