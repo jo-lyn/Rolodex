@@ -74,6 +74,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(new ModelManager(rolodex, differentUserPrefs)));
     }
 
+    //@@author jo-lyn
     @Test
     public void removeTag() throws IllegalValueException, PersonNotFoundException {
 
@@ -128,5 +129,5 @@ public class ModelManagerTest {
         actualIndex = modelManager.getIndex(BENSON);
         assertEquals(expectedIndex, actualIndex);
     }
-
+    //@@author
 }
