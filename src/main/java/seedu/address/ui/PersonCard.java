@@ -45,6 +45,7 @@ public class PersonCard extends UiPart<Region> {
         bindListeners(person);
     }
 
+    //@@author jo-lyn
     /**
      * Initialise the person card with the person details.
      */
@@ -63,6 +64,7 @@ public class PersonCard extends UiPart<Region> {
         tags.getChildren().clear();
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
+    //@@author
 
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
