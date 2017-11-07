@@ -197,6 +197,7 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
+        //@@author jo-lyn
         public void setRemark(Remark remark) {
             this.remark = remark;
         }
@@ -204,6 +205,7 @@ public class EditCommand extends UndoableCommand {
         public Optional<Remark> getRemark() {
             return Optional.ofNullable(remark);
         }
+        //@@author
 
         public void setTags(Set<Tag> tags) {
             this.tags = tags;

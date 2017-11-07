@@ -1,4 +1,14 @@
 # jo-lyn
+###### \java\seedu\address\logic\commands\EditCommand.java
+``` java
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
+        }
+```
 ###### \java\seedu\address\logic\commands\RemarkCommand.java
 ``` java
 /**

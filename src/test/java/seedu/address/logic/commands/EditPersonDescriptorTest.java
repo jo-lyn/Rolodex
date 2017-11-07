@@ -52,9 +52,11 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
+        //@@author jo-lyn
         // different remark -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRemark(VALID_REMARK_BOB).build();
         assertFalse(DESC_BOB.equals(editedAmy));
+        //@@author
 
         // different tags -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();

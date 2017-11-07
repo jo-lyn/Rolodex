@@ -1,4 +1,10 @@
 # jo-lyn
+###### \java\seedu\address\logic\commands\EditPersonDescriptorTest.java
+``` java
+        // different remark -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRemark(VALID_REMARK_BOB).build();
+        assertFalse(DESC_BOB.equals(editedAmy));
+```
 ###### \java\seedu\address\logic\commands\ListCommandTest.java
 ``` java
         listCommandRemarkDefault = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_DEFAULT));
