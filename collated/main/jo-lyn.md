@@ -261,3 +261,53 @@ public class Remark {
         keyboardIcon.setImage(keyboardError);
     }
 ```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    /**
+     * Set key listeners for handling keyboard shortcuts.
+     */
+    protected void setKeyListeners() {
+        KeyListener keyListener = new KeyListener(getRoot(), resultDisplay, personListPanel, commandBox);
+        keyListener.handleKeyPress();
+    }
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+        personListPanel = new PersonListPanel(logic.getLatestPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    /**
+     * Proportions the split pane divider position according to window size
+     */
+    private void setSplitPaneDividerProperty() {
+
+        primaryStage.showingProperty().addListener((observable, oldValue, newValue) ->
+                splitPane.setDividerPositions(0.35f));
+
+        primaryStage.widthProperty().addListener((observable, oldValue, newValue) ->
+                splitPane.setDividerPositions(0.35f));
+    }
+```
+###### \java\seedu\address\ui\PersonCard.java
+``` java
+    /**
+     * Initialise the person card with the person details.
+     */
+    private void initialisePerson(ReadOnlyPerson person, int displayedIndex) {
+        id.setText(Integer.toString(displayedIndex));
+        setAvatar(person);
+        setTags(person);
+    }
+
+    private void setAvatar(ReadOnlyPerson person) {
+        initial.setText(Avatar.getInitial(person.getName().fullName));
+        avatar.setFill(Paint.valueOf(Avatar.getColor(person.getName().fullName)));
+    }
+
+    private void setTags(ReadOnlyPerson person) {
+        tags.getChildren().clear();
+        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+```
