@@ -18,6 +18,7 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+//@@author jo-lyn
 /**
  * Adds a remark to an existing person in the rolodex.
  */

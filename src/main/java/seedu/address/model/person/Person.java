@@ -126,6 +126,7 @@ public class Person implements ReadOnlyPerson {
         return address.get();
     }
 
+    //@@author jo-lyn
     public void setRemark(Remark remark) {
         this.remark.set(requireNonNull(remark));
     }
@@ -139,6 +140,7 @@ public class Person implements ReadOnlyPerson {
     public Remark getRemark() {
         return remark.get();
     }
+    //@@author
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

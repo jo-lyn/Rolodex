@@ -184,6 +184,7 @@ public class ListCommandTest {
         assertCommandSuccess(listCommandAddressAscending, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
+    //@@author jo-lyn
     @Test
     public void executeListIsSortedByRemarkDefaultShowsSorted() {
         sortAllPersons(expectedModel, SORT_ARGUMENT_REMARK_DEFAULT);
@@ -201,4 +202,5 @@ public class ListCommandTest {
         sortAllPersons(expectedModel, SORT_ARGUMENT_REMARK_ASCENDING);
         assertCommandSuccess(listCommandRemarkAscending, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
+    //@@author
 }

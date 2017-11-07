@@ -1,4 +1,225 @@
 # jo-lyn
+###### \java\seedu\address\logic\commands\ListCommandTest.java
+``` java
+    @Test
+    public void executeListIsSortedByRemarkDefaultShowsSorted() {
+        sortAllPersons(expectedModel, SORT_ARGUMENT_REMARK_DEFAULT);
+        assertCommandSuccess(listCommandRemarkDefault, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executeListIsSortedByRemarkDescendingShowsSorted() {
+        sortAllPersons(expectedModel, SORT_ARGUMENT_REMARK_DESCENDING);
+        assertCommandSuccess(listCommandRemarkDescending, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executeListIsSortedByRemarkAscendingShowsSorted() {
+        sortAllPersons(expectedModel, SORT_ARGUMENT_REMARK_ASCENDING);
+        assertCommandSuccess(listCommandRemarkAscending, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+```
+###### \java\seedu\address\logic\commands\RemarkCommandTest.java
+``` java
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for RemarkCommand.
+ */
+public class RemarkCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private Model model = new ModelManager(getTypicalRolodex(), new UserPrefs());
+
+    @Test
+    public void executeAddRemarkSuccess() throws Exception {
+        Person editedPerson = new PersonBuilder(model.getLatestPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
+                .withRemark("Some remark").build();
+
+        RemarkCommand remarkCommand = prepareCommand(INDEX_FIRST_PERSON, editedPerson.getRemark().value);
+
+        String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new Rolodex(model.getRolodex()), new UserPrefs());
+        expectedModel.updatePerson(model.getLatestPersonList().get(0), editedPerson);
+
+        assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeDeleteRemarkSuccess() throws Exception {
+        Person editedPerson = new Person(model.getLatestPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        editedPerson.setRemark(new Remark(""));
+
+        RemarkCommand remarkCommand = prepareCommand(INDEX_FIRST_PERSON, editedPerson.getRemark().toString());
+
+        String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new Rolodex(model.getRolodex()), new UserPrefs());
+        expectedModel.updatePerson(model.getLatestPersonList().get(0), editedPerson);
+
+        assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeFilteredListSuccess() throws Exception {
+        showFirstPersonOnly(model);
+
+        ReadOnlyPerson personInFilteredList = model.getLatestPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(personInFilteredList)
+                .withRemark("Some remark").build();
+        RemarkCommand remarkCommand = prepareCommand(INDEX_FIRST_PERSON, editedPerson.getRemark().value);
+
+        String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
+        Model expectedModel = new ModelManager(new Rolodex(model.getRolodex()), new UserPrefs());
+        expectedModel.updatePerson(model.getLatestPersonList().get(0), editedPerson);
+
+        assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeInvalidPersonIndexUnfilteredListFailure() throws Exception {
+        Index outOfBoundIndex = Index.fromOneBased(model.getLatestPersonList().size() + 1);
+        RemarkCommand remarkCommand = prepareCommand(outOfBoundIndex, VALID_REMARK_BOB);
+
+        assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    /**
+     * Edit filtered list where index is larger than size of filtered list,
+     * but smaller than size of rolodex
+     */
+    @Test
+    public void executeInvalidPersonIndexFilteredListFailure() throws Exception {
+        showFirstPersonOnly(model);
+        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+
+        // ensures that outOfBoundIndex is still in bounds of rolodex list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRolodex().getPersonList().size());
+        RemarkCommand remarkCommand = prepareCommand(outOfBoundIndex, VALID_REMARK_BOB);
+
+        assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_AMY));
+
+        // same values -> true
+        RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_AMY));
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> false
+        assertFalse(standardCommand == null);
+
+        // different types -> false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different index -> false
+        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_SECOND_PERSON, new Remark(VALID_REMARK_AMY))));
+
+        // different descriptor -> false
+        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_FIRST_PERSON, new Remark(VALID_REMARK_BOB))));
+    }
+
+    /**
+     * Returns an {@code RemarkCommand} with parameters {@code index} and {@code remark}
+     */
+    private RemarkCommand prepareCommand(Index index, String remark) {
+        RemarkCommand remarkCommand = new RemarkCommand(index, new Remark(remark));
+        remarkCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        return remarkCommand;
+    }
+}
+```
+###### \java\seedu\address\logic\parser\AddCommandParserTest.java
+``` java
+    @Test
+    public void parseOptionalFieldsMissingSuccess() {
+        // zero tags
+        Person expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withRemark(VALID_REMARK_AMY)
+                .withTags().build();
+        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + REMARK_DESC_AMY, new AddCommand(expectedPerson));
+
+        // no remark
+        expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+
+        // no remark and no tags
+        expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().build();
+        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(expectedPerson));
+    }
+```
+###### \java\seedu\address\logic\parser\ParserUtilTest.java
+``` java
+    @Test
+    public void parseRemarkNullThrowsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseRemark(null);
+    }
+
+    @Test
+    public void parseRemarkOptionalEmptyReturnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseRemark(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parseRemarkValidValueReturnsRemark() throws Exception {
+        Remark expectedRemark = new Remark(VALID_REMARK);
+        Optional<Remark> actualRemark = ParserUtil.parseRemark(Optional.of(VALID_REMARK));
+
+        assertEquals(expectedRemark, actualRemark.get());
+    }
+```
+###### \java\seedu\address\logic\parser\RemarkCommandParserTest.java
+``` java
+public class RemarkCommandParserTest {
+    private RemarkCommandParser parser = new RemarkCommandParser();
+
+    @Test
+    public void parseIndexSpecifiedFailure() throws Exception {
+        final Remark remark = new Remark("Some remark.");
+
+        // have remarks
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString() + " " + remark;
+        RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, remark);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // no remarks
+        userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString();
+        expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(""));
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parseNoFieldSpecifiedFailure() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
+
+        // nothing at all
+        assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
+    }
+
+}
+```
+###### \java\seedu\address\logic\parser\RolodexParserTest.java
+``` java
+    @Test
+    public void parseCommandRemark() throws Exception {
+        final Remark remark = new Remark("Some remark.");
+        RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + " " + remark.value);
+        assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, remark), command);
+    }
+```
 ###### \java\seedu\address\model\ModelManagerTest.java
 ``` java
     @Test
@@ -54,5 +275,72 @@
         expectedIndex = INDEX_SECOND_PERSON;
         actualIndex = modelManager.getIndex(BENSON);
         assertEquals(expectedIndex, actualIndex);
+    }
+```
+###### \java\seedu\address\model\person\RemarkTest.java
+``` java
+public class RemarkTest {
+
+    @Test
+    public void equals() {
+        Remark remark = new Remark("Hello");
+
+        // same object -> true
+        assertTrue(remark.equals(remark));
+
+        // same values -> true
+        Remark remarkCopy = new Remark(remark.value);
+        assertTrue(remark.equals(remarkCopy));
+
+        // different types -> false
+        assertFalse(remark.equals(1));
+
+        // null -> false
+        assertFalse(remark == null);
+
+        // different remark -> false
+        Remark differentRemark = new Remark("Bye");
+        assertFalse(remark.equals(differentRemark));
+    }
+
+    @Test
+    public void compareTo() {
+        Remark remark = new Remark("Hey");
+
+        // same object -> true
+        assertTrue(remark.compareTo(remark) == 0);
+
+        // same values -> true
+        Remark remarkCopy = new Remark(remark.value);
+        assertTrue(remark.compareTo(remarkCopy) == 0);
+
+        // different remark -> false
+        Remark differentRemark = new Remark("Bye");
+        assertFalse(remark.compareTo(differentRemark) == 0);
+    }
+}
+```
+###### \java\seedu\address\testutil\EditPersonDescriptorBuilder.java
+``` java
+    /**
+     * Sets the {@code Remark} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRemark(String remark) {
+        try {
+            ParserUtil.parseRemark(Optional.of(remark)).ifPresent(descriptor::setRemark);
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("remark is expected to be unique.");
+        }
+        return this;
+    }
+```
+###### \java\seedu\address\testutil\PersonBuilder.java
+``` java
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRemark(String remark) {
+        this.person.setRemark(new Remark(remark));
+        return this;
     }
 ```

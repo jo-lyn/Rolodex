@@ -80,6 +80,7 @@ public class ParserUtil {
         return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
     }
 
+    //@@author jo-lyn
     /**
      * Parses a {@code Optional<String> remark} into an {@code Optional<Remark>} if {@code remark} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
@@ -88,6 +89,7 @@ public class ParserUtil {
         requireNonNull(remark);
         return remark.isPresent() ? Optional.of(new Remark(remark.get())) : Optional.empty();
     }
+    //@@author
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.

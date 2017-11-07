@@ -28,6 +28,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;
 
+//@@author jo-lyn
 /**
  * Contains integration tests (interaction with the Model) and unit tests for RemarkCommand.
  */
