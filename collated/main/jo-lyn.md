@@ -45,12 +45,12 @@
 ###### \java\seedu\address\ui\CommandBox.java
 ``` java
     /**
-     * Sets the command box style to use the default style.
-     * {@code keyboardTyping} icon changes to {@code keyboardIdle} when there is no change
+     * Change {@code keyboardTyping} icon to {@code keyboardIdle} when there is no change
      * to text field after some time.
      */
-    private void updateKeyboardIconAndStyle() {
+    private void updateKeyboardIcon() {
         ObservableList<String> styleClass = commandTextField.getStyleClass();
+
         keyboardIcon.setImage(keyboardTyping);
         pause.setOnFinished(event -> {
             if (!styleClass.contains(ERROR_STYLE_CLASS)) {
@@ -58,7 +58,6 @@
             }
         });
         pause.playFromStart();
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 ```
 ###### \java\seedu\address\ui\CommandBox.java
