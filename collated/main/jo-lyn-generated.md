@@ -28,7 +28,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="main-window-vbox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox styleClass="v-box" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
   <stylesheets>
     <URL value="@LightTheme.css" />
     <URL value="@Extensions.css" />
@@ -159,6 +159,7 @@
                                     <Insets bottom="2.0" right="2.0" top="2.0" />
                                  </padding>
                               </Label>
+                              <Label fx:id="remark" text="\$remark" wrapText="true" />
                            </children>
                            <padding>
                               <Insets left="20.0" />
