@@ -96,6 +96,7 @@ public class MainWindow extends UiPart<Region> {
         return primaryStage;
     }
 
+    //@@author jo-lyn
     /**
      * Set key listeners for handling keyboard shortcuts.
      */
@@ -103,6 +104,7 @@ public class MainWindow extends UiPart<Region> {
         KeyListener keyListener = new KeyListener(getRoot(), resultDisplay, personListPanel, commandBox);
         keyListener.handleKeyPress();
     }
+    //@@author
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -143,8 +145,10 @@ public class MainWindow extends UiPart<Region> {
      */
     void fillInnerParts() {
 
+        //@@author jo-lyn
         personListPanel = new PersonListPanel(logic.getLatestPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //@@author
 
         PersonDetailPanel personDetailPanel = new PersonDetailPanel();
         personDetailPlaceholder.getChildren().add(personDetailPanel.getRoot());
@@ -192,6 +196,7 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.setMinWidth(MIN_WIDTH);
     }
 
+    //@@author jo-lyn
     /**
      * Proportions the split pane divider position according to window size
      */
@@ -203,6 +208,7 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.widthProperty().addListener((observable, oldValue, newValue) ->
                 splitPane.setDividerPositions(0.35f));
     }
+    //@@author
 
     /**
      * Returns the current size and the position of the main Window.
