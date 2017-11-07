@@ -374,6 +374,24 @@ public class RemarkTest {
         return this;
     }
 ```
+###### \java\systemtests\EditCommandSystemTest.java
+``` java
+        /* Case: edit some fields excluding name -> edited with no change in index */
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TAG_DESC_FRIEND;
+        personToEdit = getModel().getLatestPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withTags(VALID_TAG_FRIEND).build(personToEdit.getTags());
+        assertCommandSuccess(command, index, editedPerson, index);
+
+        /* Case: edit some fields including name -> edited with change in index */
+        index = INDEX_SECOND_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY;
+        personToEdit = getModel().getLatestPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+                .build(personToEdit.getTags());
+        newIndex = INDEX_FIRST_PERSON;
+        assertCommandSuccess(command, index, editedPerson, newIndex);
+```
 ###### \java\systemtests\FindCommandSystemTest.java
 ``` java
         /* Case: find remark of person in rolodex -> 0 persons found */

@@ -103,6 +103,7 @@ public class EditCommandSystemTest extends RolodexSystemTest {
                 .build(personToEdit.getTags());
         assertCommandSuccess(command, index, editedPerson, index);
 
+        //@@author jo-lyn
         /* Case: edit some fields excluding name -> edited with no change in index */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TAG_DESC_FRIEND;
@@ -118,7 +119,7 @@ public class EditCommandSystemTest extends RolodexSystemTest {
                 .build(personToEdit.getTags());
         newIndex = INDEX_FIRST_PERSON;
         assertCommandSuccess(command, index, editedPerson, newIndex);
-
+        //@@author
 
         /* Case: empty tag parameter -> no effect */
         index = INDEX_FIRST_PERSON;

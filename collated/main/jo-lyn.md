@@ -1,4 +1,39 @@
 # jo-lyn
+###### \java\seedu\address\commons\events\ui\ClearPersonDetailPanelRequestEvent.java
+``` java
+/**
+ * Indicates a request to clear the person detail panel.
+ */
+public class ClearPersonDetailPanelRequestEvent extends BaseEvent {
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}
+```
+###### \java\seedu\address\commons\events\ui\PersonEditedEvent.java
+``` java
+/**
+ * Indicates that a person has been edited.
+ */
+public class PersonEditedEvent extends BaseEvent {
+
+    public final ReadOnlyPerson editedPerson;
+    public final int targetIndex;
+
+    public PersonEditedEvent(ReadOnlyPerson person, Index index) {
+        editedPerson = person;
+        targetIndex = index.getZeroBased();
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
+}
+```
 ###### \java\seedu\address\logic\commands\EditCommand.java
 ``` java
         public void setRemark(Remark remark) {
