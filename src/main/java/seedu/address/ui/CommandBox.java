@@ -96,6 +96,7 @@ public class CommandBox extends UiPart<Region> {
         historySnapshot = logic.getHistorySnapshot();
     }
 
+    //@@author jo-lyn
     public void setFocus() {
         commandTextField.requestFocus();
     }
@@ -112,6 +113,7 @@ public class CommandBox extends UiPart<Region> {
         keyboardTyping = new Image(getClass().getResourceAsStream("/images/keyboardTyping.png"));
         keyboardError = new Image(getClass().getResourceAsStream("/images/keyboardError.png"));
     }
+    //@@author
 
     /**
      * Handles the key press event, {@code keyEvent}.
@@ -240,6 +242,7 @@ public class CommandBox extends UiPart<Region> {
         selectedText = "";
     }
 
+    //@@author jo-lyn
     /**
      * Sets the command box style to use the default style.
      * {@code keyboardTyping} icon changes to {@code keyboardIdle} when there is no change
@@ -256,6 +259,7 @@ public class CommandBox extends UiPart<Region> {
         pause.playFromStart();
         commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
+    //@@author
 
     /**
      * if the input matches the command format, automatically selects the first field that the user need to key in
@@ -351,6 +355,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    //@@author jo-lyn
     /**
      * Sets the command box style to indicate a failed command.
      */
@@ -364,5 +369,6 @@ public class CommandBox extends UiPart<Region> {
         styleClass.add(ERROR_STYLE_CLASS);
         keyboardIcon.setImage(keyboardError);
     }
+    //@@author
 
 }
