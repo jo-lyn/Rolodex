@@ -162,11 +162,13 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        //@@author jo-lyn
         // remark
         userInput = targetIndex.getOneBased() + REMARK_DESC_AMY;
         descriptor = new EditPersonDescriptorBuilder().withRemark(VALID_REMARK_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
+        //@@author
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;

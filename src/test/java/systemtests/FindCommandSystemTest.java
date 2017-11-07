@@ -132,10 +132,12 @@ public class FindCommandSystemTest extends RolodexSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
+        //@@author jo-lyn
         /* Case: find remark of person in rolodex -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + GEORGE.getRemark().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+        //@@author
 
         /* Case: find tag friends of persons in rolodex -> 6 persons found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());

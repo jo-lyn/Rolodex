@@ -1,6 +1,15 @@
 # jo-lyn
 ###### \java\seedu\address\logic\commands\ListCommandTest.java
 ``` java
+        listCommandRemarkDefault = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_DEFAULT));
+        listCommandRemarkDefault.setData(model, new CommandHistory(), new UndoRedoStack());
+        listCommandRemarkDescending = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_DESCENDING));
+        listCommandRemarkDescending.setData(model, new CommandHistory(), new UndoRedoStack());
+        listCommandRemarkAscending = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_ASCENDING));
+        listCommandRemarkAscending.setData(model, new CommandHistory(), new UndoRedoStack());
+```
+###### \java\seedu\address\logic\commands\ListCommandTest.java
+``` java
     @Test
     public void executeListIsSortedByRemarkDefaultShowsSorted() {
         sortAllPersons(expectedModel, SORT_ARGUMENT_REMARK_DEFAULT);
@@ -136,6 +145,13 @@ public class RemarkCommandTest {
 ```
 ###### \java\seedu\address\logic\parser\AddCommandParserTest.java
 ``` java
+        // multiple remarks - last remark accepted
+        assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + REMARK_DESC_AMY + REMARK_DESC_BOB + TAG_DESC_FRIEND,
+                new AddCommand(expectedPerson));
+```
+###### \java\seedu\address\logic\parser\AddCommandParserTest.java
+``` java
     @Test
     public void parseOptionalFieldsMissingSuccess() {
         // zero tags
@@ -157,6 +173,14 @@ public class RemarkCommandTest {
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(expectedPerson));
     }
+```
+###### \java\seedu\address\logic\parser\EditCommandParserTest.java
+``` java
+        // remark
+        userInput = targetIndex.getOneBased() + REMARK_DESC_AMY;
+        descriptor = new EditPersonDescriptorBuilder().withRemark(VALID_REMARK_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
 ```
 ###### \java\seedu\address\logic\parser\ParserUtilTest.java
 ``` java
@@ -343,4 +367,11 @@ public class RemarkTest {
         this.person.setRemark(new Remark(remark));
         return this;
     }
+```
+###### \java\systemtests\FindCommandSystemTest.java
+``` java
+        /* Case: find remark of person in rolodex -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + GEORGE.getRemark().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 ```

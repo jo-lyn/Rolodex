@@ -93,12 +93,14 @@ public class ListCommandTest {
         listCommandAddressAscending = new ListCommand(Arrays.asList(SORT_ARGUMENT_ADDRESS_ASCENDING));
         listCommandAddressAscending.setData(model, new CommandHistory(), new UndoRedoStack());
 
+        //@@author jo-lyn
         listCommandRemarkDefault = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_DEFAULT));
         listCommandRemarkDefault.setData(model, new CommandHistory(), new UndoRedoStack());
         listCommandRemarkDescending = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_DESCENDING));
         listCommandRemarkDescending.setData(model, new CommandHistory(), new UndoRedoStack());
         listCommandRemarkAscending = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_ASCENDING));
         listCommandRemarkAscending.setData(model, new CommandHistory(), new UndoRedoStack());
+        //@@author
     }
 
     @Test
