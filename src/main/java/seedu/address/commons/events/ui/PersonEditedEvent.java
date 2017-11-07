@@ -4,6 +4,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
+//@@author jo-lyn
 /**
  * Indicates that a person has been edited.
  */
