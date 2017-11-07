@@ -62,17 +62,7 @@
 ```
 ###### \java\seedu\address\ui\CommandBox.java
 ``` java
-    /**
-     * Sets the command box style to indicate a failed command.
-     */
-    public void setStyleToIndicateCommandFailure() {
-        ObservableList<String> styleClass = commandTextField.getStyleClass();
-
-        if (styleClass.contains(ERROR_STYLE_CLASS)) {
-            return;
-        }
-
-        styleClass.add(ERROR_STYLE_CLASS);
+    private void setErrorKeyboardIcon() {
         keyboardIcon.setImage(keyboardError);
     }
 ```
