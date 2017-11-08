@@ -34,6 +34,24 @@ public class PersonEditedEvent extends BaseEvent {
 
 }
 ```
+###### \java\seedu\address\logic\commands\AddCommand.java
+``` java
+    /**
+     * Jumps to the {@code addedPerson} in the person list.
+     */
+    private void jumpToAddedPerson(ReadOnlyPerson addedPerson) {
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getIndex(addedPerson)));
+    }
+```
+###### \java\seedu\address\logic\commands\EditCommand.java
+``` java
+    /**
+     * Raise a person edited event to update display.
+     */
+    private void raisePersonEditedEvent(ReadOnlyPerson editedPerson) {
+        EventsCenter.getInstance().post(new PersonEditedEvent(editedPerson, model.getIndex(editedPerson)));
+    }
+```
 ###### \java\seedu\address\logic\commands\EditCommand.java
 ``` java
         public void setRemark(Remark remark) {
@@ -170,26 +188,6 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
 
         return new RemarkCommand(index, new Remark(remark));
     }
-
-    /**
-     * Returns a formatted argument string given unformatted
-     * {@code commandWord} and {@code rawArgs}
-     * or a {@code null} {@code String} if not formattable.
-     */
-    public static String parseArguments(String commandWord, String rawArgs) {
-        // Check if index (number) exists, removes Remark prefix (if it exists) and re-adds it before returning.
-        if (tryParseInt(rawArgs)) {
-            String indexString = Integer.toString(parseFirstInt(rawArgs));
-            String remark = parseRemoveFirstInt(rawArgs).trim().replace(PREFIX_REMARK.toString(), "");
-            return " " + indexString + " " + PREFIX_REMARK + remark;
-        } else if (tryParseInt(commandWord)) {
-            String indexString = Integer.toString(parseFirstInt(commandWord));
-            String remark = rawArgs.trim().replace(PREFIX_REMARK.toString(), "");
-            return " " + indexString + " " + PREFIX_REMARK + remark;
-        }
-        return null;
-    }
-}
 ```
 ###### \java\seedu\address\model\ModelManager.java
 ``` java
@@ -274,6 +272,11 @@ public class Remark {
     }
 
 }
+```
+###### \java\seedu\address\storage\XmlAdaptedPerson.java
+``` java
+    @XmlElement(required = true)
+    private String remark;
 ```
 ###### \java\seedu\address\ui\CommandBox.java
 ``` java
@@ -597,6 +600,25 @@ public class PersonDetailPanel extends UiPart<Region> {
     }
 }
 ```
+###### \java\seedu\address\ui\PersonListPanel.java
+``` java
+    public void setFocus() {
+        personListView.requestFocus();
+    }
+```
+###### \java\seedu\address\ui\PersonListPanel.java
+``` java
+    @Subscribe
+    private void handleJumpToListRequestEvent(PersonEditedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        scrollTo(event.targetIndex);
+    }
+```
+###### \java\seedu\address\ui\ResultDisplay.java
+``` java
+    public static final String WELCOME_TEXT = "Welcome to Rolodex! If you need somewhere to start, "
+            + "type \"help\" to view the user guide.";
+```
 ###### \java\seedu\address\ui\util\Avatar.java
 ``` java
 /**
@@ -742,9 +764,11 @@ public class KeyListenerUtil {
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
-```
-###### \resources\view\LightTheme.css
-``` css
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -878,6 +902,31 @@ public class KeyListenerUtil {
 ```
 ###### \resources\view\LightTheme.css
 ``` css
+.dialog-pane {
+    -fx-background-color: #f7f5f4;
+}
+
+.dialog-pane > *.button-bar > *.container {
+    -fx-background-color: #f7f5f4;
+}
+
+.dialog-pane > *.label.content {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: gray;
+}
+
+.dialog-pane:header *.header-panel {
+    -fx-background-color: derive(#f7f5f4, 25%);
+}
+
+.dialog-pane:header *.header-panel *.label {
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: gray;
+    -fx-text-fill: gray;
+}
+
 .scroll-bar {
     -fx-background-color: derive(#f7f5f4, -5%);
 }

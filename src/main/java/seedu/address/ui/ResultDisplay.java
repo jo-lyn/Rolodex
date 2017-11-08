@@ -18,8 +18,10 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
  */
 public class ResultDisplay extends UiPart<Region> {
 
+    //@@author jo-lyn
     public static final String WELCOME_TEXT = "Welcome to Rolodex! If you need somewhere to start, "
             + "type \"help\" to view the user guide.";
+    //@@author
 
     private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
     private static final String FXML = "ResultDisplay.fxml";

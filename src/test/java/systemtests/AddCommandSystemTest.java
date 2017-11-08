@@ -222,6 +222,7 @@ public class AddCommandSystemTest extends RolodexSystemTest {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, toAdd);
     }
 
+    //@@author jo-lyn
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except that the result
      * display box displays {@code expectedResultMessage} and the model related components equal to
@@ -240,6 +241,7 @@ public class AddCommandSystemTest extends RolodexSystemTest {
             assertSelectedCardChanged(expectedModel.getIndex(person));
         }
     }
+    //@@author
 
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display

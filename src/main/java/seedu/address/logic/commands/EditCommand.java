@@ -99,12 +99,14 @@ public class EditCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
+    //@@author jo-lyn
     /**
      * Raise a person edited event to update display.
      */
     private void raisePersonEditedEvent(ReadOnlyPerson editedPerson) {
         EventsCenter.getInstance().post(new PersonEditedEvent(editedPerson, model.getIndex(editedPerson)));
     }
+    //@@author
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}

@@ -29,8 +29,10 @@ public class ResultDisplayTest extends GuiUnitTest {
 
     @Test
     public void display() {
+        //@@author jo-lyn
         // prompt text
         assertEquals(WELCOME_TEXT, resultDisplayHandle.getPromptText());
+        //@@author
 
         // default result text
         guiRobot.pauseForHuman();

@@ -132,11 +132,13 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
+        //@@author jo-lyn
         @Override
         public Index getIndex(ReadOnlyPerson person) {
             fail("This method should not be called.");
             return null;
         }
+        //@@author
 
         @Override
         public ObservableList<ReadOnlyPerson> getLatestPersonList() {
@@ -186,10 +188,12 @@ public class AddCommandTest {
             return new Rolodex();
         }
 
+        //@@author jo-lyn
         @Override
         public Index getIndex(ReadOnlyPerson person) {
             return Index.fromZeroBased(personsAdded.indexOf(new Person(person)));
         }
+        //@@author
     }
 
 }

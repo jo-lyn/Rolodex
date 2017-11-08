@@ -34,9 +34,11 @@ public class PersonListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    //@@author jo-lyn
     public void setFocus() {
         personListView.requestFocus();
     }
+    //@@author
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
         ObservableList<PersonCard> mappedList = EasyBind.map(
@@ -72,11 +74,13 @@ public class PersonListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    //@@author jo-lyn
     @Subscribe
     private void handleJumpToListRequestEvent(PersonEditedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
+    //@@author
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.

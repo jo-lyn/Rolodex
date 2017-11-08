@@ -30,8 +30,10 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    //@@author jo-lyn
     @XmlElement(required = true)
     private String remark;
+    //@@author
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();

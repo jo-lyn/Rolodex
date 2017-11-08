@@ -54,12 +54,14 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
         return !selectedCardsList.isEmpty();
     }
 
+    //@@author jo-lyn
     /**
      * Returns true is the listview is focused.
      */
     public boolean isFocused() {
         return getRootNode().isFocused();
     }
+    //@@author
 
     /**
      * Navigates the listview to display and select the person.

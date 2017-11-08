@@ -77,13 +77,11 @@
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
-/* @@author */
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
 }
 
-/* @@author jo-lyn */
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -276,6 +274,7 @@
     -fx-background-color: derive(-fx-focus-color, 30%);
 }
 
+/** @@author jo-lyn */
 .dialog-pane {
     -fx-background-color: #f7f5f4;
 }
@@ -301,7 +300,6 @@
     -fx-text-fill: gray;
 }
 
-/** @@author jo-lyn */
 .scroll-bar {
     -fx-background-color: derive(#f7f5f4, -5%);
 }

@@ -22,6 +22,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
+//@@author jo-lyn
 public class KeyListenerTest extends RolodexGuiTest {
 
     @Test
@@ -141,6 +142,7 @@ public class KeyListenerTest extends RolodexGuiTest {
 
         assertEquals(expectedMessage, getResultDisplay().getText());
     }
+    //@@author
 
     @Test
     public void executeKeyEventForAddCommand() {

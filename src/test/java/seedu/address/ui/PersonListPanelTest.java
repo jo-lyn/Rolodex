@@ -58,9 +58,11 @@ public class PersonListPanelTest extends GuiUnitTest {
         assertCardEquals(expectedCard, selectedCard);
     }
 
+    //@@author jo-lyn
     @Test
     public void setFocus() {
         personListPanel.setFocus();
         assertTrue(personListPanelHandle.isFocused());
     }
+    //@@author
 }
