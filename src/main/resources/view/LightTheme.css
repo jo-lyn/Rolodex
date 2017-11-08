@@ -1,3 +1,4 @@
+/* @@author jo-lyn */
 .root {
     -fx-background-color: #f7f5f4;
     -fx-accent: derive(#f7f5f4, -10%);
@@ -29,6 +30,7 @@
     -fx-font-size: 16px;
     -fx-font-family: "Segoe UI Semibold";
 }
+/* @@author */
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
@@ -40,6 +42,7 @@
     -fx-max-height: 0;
 }
 
+/* @@author jo-lyn */
 .table-view {
     -fx-base: #f7f5f4;
     -fx-control-inner-background: #f7f5f4;
@@ -48,6 +51,7 @@
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
 }
+/* @@author */
 
 .table-view .column-header-background {
     -fx-background-color: transparent;
@@ -65,6 +69,7 @@
     -fx-border-insets: 0 10 1 0;
 }
 
+/* @@author jo-lyn */
 .table-view .column-header .label {
     -fx-font-size: 26px;
     -fx-font-family: "Segoe UI Light";
@@ -72,11 +77,13 @@
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
+/* @@author */
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
 }
 
+/* @@author jo-lyn */
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -85,6 +92,7 @@
 .split-pane {
     -fx-background-color: transparent;
 }
+/* @@author */
 
 .list-view {
     -fx-background-insets: 0;
@@ -97,6 +105,7 @@
     -fx-padding: 0 0 0 0;
 }
 
+/* @@author jo-lyn */
 .list-cell:filled {
     -fx-background-color: #ffffff;
 }
@@ -216,6 +225,7 @@
     -fx-text-fill: derive(#716f70, -10%);
     -fx-opacity: 0.9;
 }
+/* @@author */
 
 /*
  * Metro style Push Button
@@ -291,6 +301,7 @@
     -fx-text-fill: gray;
 }
 
+/** @@author jo-lyn */
 .scroll-bar {
     -fx-background-color: derive(#f7f5f4, -5%);
 }
@@ -300,6 +311,7 @@
     -fx-background-insets: 1;
     -fx-background-radius: 18 18 18 18;
 }
+/* @@author */
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
     -fx-background-color: transparent;
@@ -310,6 +322,7 @@
     -fx-shape: " ";
 }
 
+/* @@author jo-lyn */
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
     -fx-padding: 8 3 8 3;
 }
@@ -354,12 +367,18 @@
     -fx-font-size: 17px;
     -fx-text-fill: gray;
 }
+/* @@author */
 
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #f70d1a;
 }
 
+#filterField {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+/* @@author jo-lyn */
 #resultDisplay {
     -fx-prompt-text-fill: gray;
 }
@@ -367,10 +386,6 @@
 #resultDisplay .content {
     -fx-background-color: transparent, #ffffff, transparent, #ffffff;
     -fx-background-radius: 0;
-}
-
-#filterField {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #tags, #tagsWithBorder {
@@ -394,3 +409,4 @@
     -fx-border-radius: 10;
     -fx-font-size: 13px;
 }
+/* @@author */

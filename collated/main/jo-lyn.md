@@ -688,3 +688,283 @@ public class KeyListenerUtil {
             ));
 }
 ```
+###### \resources\view\LightTheme.css
+``` css
+.root {
+    -fx-background-color: #f7f5f4;
+    -fx-accent: derive(#f7f5f4, -10%);
+    -fx-focus-color: derive(#f7f5f4, -10%);
+}
+
+.label {
+    -fx-font-size: 15px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.label-bright {
+    -fx-font-size: 15px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: gray;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 42px;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: gray;
+    -fx-opacity: 1;
+}
+
+.text-field {
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Semibold";
+}
+```
+###### \resources\view\LightTheme.css
+``` css
+.table-view {
+    -fx-base: #f7f5f4;
+    -fx-control-inner-background: #f7f5f4;
+    -fx-background-color: #f7f5f4;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+```
+###### \resources\view\LightTheme.css
+``` css
+.table-view .column-header .label {
+    -fx-font-size: 26px;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: gray;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+```
+###### \resources\view\LightTheme.css
+``` css
+.split-pane:horizontal .split-pane-divider {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.split-pane {
+    -fx-background-color: transparent;
+}
+```
+###### \resources\view\LightTheme.css
+``` css
+.list-cell:filled {
+    -fx-background-color: #ffffff;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: derive(#f7f5f4, -5%);
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: transparent;
+}
+
+.cell-name-label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #444344;
+}
+
+.cell-id-label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: derive(gray, 35%);
+    -fx-font-size: 15px;
+}
+
+.person-big-label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 26px;
+    -fx-text-fill: #444344;
+}
+
+.person-small-label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15px;
+    -fx-text-fill: #848484;
+}
+
+.anchor-pane {
+     -fx-background-color: transparent;
+}
+
+.pane-with-border {
+     -fx-background-color: transparent;
+     -fx-border-top-width: 1px;
+}
+
+.command-pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18 18 18 18;
+    -fx-effect: dropshadow(gaussian, derive(#f7f5f4, -15%), 10, 0, 1, 2);
+}
+
+.result-pane {
+     -fx-background-color: #ffffff;
+     -fx-background-radius: 10 10 10 10;
+     -fx-effect: dropshadow(gaussian, derive(#f7f5f4, -15%), 10, 0, 2, 2);
+}
+
+.result-text-area {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 16px;
+    -fx-text-fill: gray;
+}
+
+.person-detail-panel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10 10 10 10;
+    -fx-effect: dropshadow(gaussian, derive(#f7f5f4, -15%), 10, 0, 2, 2);
+}
+
+.status-bar {
+    -fx-background-color: derive(#f7f5f4, 80%);
+    -fx-padding: 0 10 0 10;
+}
+
+.status-bar .label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: derive(#716f70, -10%);
+    -fx-font-size: 13px;
+}
+
+.status-bar-with-border {
+    -fx-background-color: derive(#f7f5f4, 30%);
+    -fx-border-color: derive(#f7f5f4, 25%);
+    -fx-border-width: 1px;
+}
+
+.status-bar-with-border .label {
+    -fx-text-fill: gray;
+}
+
+.grid-pane {
+    -fx-background-color: derive(#f7f5f4, 30%);
+    -fx-border-color: derive(#f7f5f4, 30%);
+    -fx-border-width: 1px;
+}
+
+.grid-pane .anchor-pane {
+    -fx-background-color: derive(#f7f5f4, 80%);
+}
+
+.context-menu {
+    -fx-background-color: derive(#f7f5f4, 50%);
+}
+
+.context-menu .label {
+    -fx-text-fill: gray;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#f7f5f4, 80%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: derive(#716f70, -10%);
+    -fx-opacity: 0.9;
+}
+```
+###### \resources\view\LightTheme.css
+``` css
+.scroll-bar {
+    -fx-background-color: derive(#f7f5f4, -5%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#f7f5f4, -25%);
+    -fx-background-insets: 1;
+    -fx-background-radius: 18 18 18 18;
+}
+```
+###### \resources\view\LightTheme.css
+``` css
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 8 3 8 3;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 3 8 3 8;
+}
+
+#cardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#personListView {
+    -fx-background-radius: 10 10 10 10;
+}
+
+#personListPanel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10 10 10 10;
+    -fx-effect: dropshadow(gaussian, derive(#f7f5f4, -15%), 10, 0, -2, 2);
+}
+
+#initialSmall {
+    -fx-font-family: "Roboto";
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 25px;
+}
+
+#initialBig {
+    -fx-font-family: "Roboto";
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 65px;
+}
+
+#commandTextField {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 17px;
+    -fx-text-fill: gray;
+}
+```
+###### \resources\view\LightTheme.css
+``` css
+#resultDisplay {
+    -fx-prompt-text-fill: gray;
+}
+
+#resultDisplay .content {
+    -fx-background-color: transparent, #ffffff, transparent, #ffffff;
+    -fx-background-radius: 0;
+}
+
+#tags, #tagsWithBorder {
+    -fx-hgap: 7;
+    -fx-vgap: 5;
+}
+
+#tags .label {
+    -fx-font-family: "Segoe UI", Optima;
+    -fx-text-fill: derive(gray, 20%);
+    -fx-padding: 1 0 1 0;
+    -fx-font-size: 14px;
+}
+
+#tagsWithBorder .label {
+    -fx-font-family: "Segoe UI", Optima;
+    -fx-text-fill: derive(gray, 20%);
+    -fx-padding: 1 5 1 5;
+    -fx-border-color: derive(gray, 20%);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-font-size: 13px;
+}
+```
