@@ -126,7 +126,7 @@ public class KeyListener {
             displayCommandFormat(DeleteCommand.FORMAT);
 
         } else {
-                // no key combination matches, do nothing
+            // no key combination matches, do nothing
         }
     }
 

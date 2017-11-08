@@ -42,6 +42,7 @@ public class RemarkCommandParserTest {
         // nothing at all
         assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
     }
+    //@@author
 
     @Test
     public void parseArgumentsNoIndexFailueThrowsParseException() throws Exception {

@@ -88,15 +88,6 @@ public class PersonDetailPanelHandle extends NodeHandle<Node> {
 ```
 ###### \java\seedu\address\logic\commands\ListCommandTest.java
 ``` java
-        listCommandRemarkDefault = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_DEFAULT));
-        listCommandRemarkDefault.setData(model, new CommandHistory(), new UndoRedoStack());
-        listCommandRemarkDescending = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_DESCENDING));
-        listCommandRemarkDescending.setData(model, new CommandHistory(), new UndoRedoStack());
-        listCommandRemarkAscending = new ListCommand(Arrays.asList(SORT_ARGUMENT_REMARK_ASCENDING));
-        listCommandRemarkAscending.setData(model, new CommandHistory(), new UndoRedoStack());
-```
-###### \java\seedu\address\logic\commands\ListCommandTest.java
-``` java
     @Test
     public void executeListIsSortedByRemarkDefaultShowsSorted() {
         sortAllPersons(expectedModel, SORT_ARGUMENT_REMARK_DEFAULT);
@@ -319,26 +310,6 @@ public class RemarkCommandParserTest {
         // nothing at all
         assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
     }
-
-    @Test
-    public void parseArgumentsNoIndexFailueThrowsParseException() throws Exception {
-        assertTrue(null == RemarkCommandParser.parseArguments("rmk", "no index here!"));
-        assertTrue(null == RemarkCommandParser.parseArguments("remark", "none here either!"));
-    }
-
-    @Test
-    public void parseArgumentsIndexInArgumentsReturnsArguments() throws Exception {
-        assertEquals(" 1 r/someStringV4lue", RemarkCommandParser.parseArguments("rmk", "1someStringV4lue"));
-        assertEquals(" 8 r/someStringV4lue", RemarkCommandParser.parseArguments("rmk", "8someStringV4lue"));
-    }
-
-    @Test
-    public void parseArgumentsIndexInCommandWordReturnsArguments() throws Exception {
-        assertEquals(" 1 r/", RemarkCommandParser.parseArguments("rmk1", ""));
-        assertEquals(" 7 r/", RemarkCommandParser.parseArguments("rmk7", ""));
-    }
-
-}
 ```
 ###### \java\seedu\address\logic\parser\RolodexParserTest.java
 ``` java
