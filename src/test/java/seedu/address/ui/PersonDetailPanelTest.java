@@ -17,6 +17,7 @@ import seedu.address.commons.events.ui.PersonEditedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
+//@@author jo-lyn
 public class PersonDetailPanelTest extends GuiUnitTest {
 
     private PersonDetailPanel personDetailPanel;

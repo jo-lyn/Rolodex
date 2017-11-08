@@ -1,4 +1,85 @@
 # jo-lyn
+###### \java\guitests\guihandles\PersonDetailPanelHandle.java
+``` java
+/**
+ * A handle for the person detail panel of the App
+ */
+public class PersonDetailPanelHandle extends NodeHandle<Node> {
+    public static final String PERSON_DETAIL_ID = "#personDetailPanel";
+    private static final String NAME_FIELD_ID = "#name";
+    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String REMARK_FIELD_ID = "#remark";
+    private static final String TAGS_FIELD_ID = "#tagsWithBorder";
+
+    private Label nameLabel;
+    private Label addressLabel;
+    private Label phoneLabel;
+    private Label emailLabel;
+    private Label remarkLabel;
+    private List<Label> tagLabels;
+
+    public PersonDetailPanelHandle(Node personDetailNode) {
+        super(personDetailNode);
+
+        this.nameLabel = getChildNode(NAME_FIELD_ID);
+        this.addressLabel = getChildNode(ADDRESS_FIELD_ID);
+        this.phoneLabel = getChildNode(PHONE_FIELD_ID);
+        this.emailLabel = getChildNode(EMAIL_FIELD_ID);
+        this.remarkLabel = getChildNode(REMARK_FIELD_ID);
+        updateTags();
+    }
+
+    public String getName() {
+        return nameLabel.getText();
+    }
+
+    public String getAddress() {
+        return addressLabel.getText();
+    }
+
+    public String getPhone() {
+        return phoneLabel.getText();
+    }
+
+    public String getEmail() {
+        return emailLabel.getText();
+    }
+
+    public String getRemark() {
+        return remarkLabel.getText();
+    }
+
+    public List<String> getTags() {
+        return tagLabels
+                .stream()
+                .map(Label::getText)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Update tags in person detail panel
+     */
+    public void updateTags() {
+        Region tagsContainer = getChildNode(TAGS_FIELD_ID);
+        this.tagLabels = tagsContainer
+                .getChildrenUnmodifiable()
+                .stream()
+                .map(Label.class::cast)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a copy of an empty tag list.
+     */
+    public List<String> getEmptyTagList() {
+        List<String> tagLabelsCopy = getTags();
+        tagLabelsCopy.clear();
+        return tagLabelsCopy;
+    }
+}
+```
 ###### \java\seedu\address\logic\commands\EditPersonDescriptorTest.java
 ``` java
         // different remark -> returns false
@@ -212,6 +293,7 @@ public class RemarkCommandTest {
 ###### \java\seedu\address\logic\parser\RemarkCommandParserTest.java
 ``` java
 public class RemarkCommandParserTest {
+
     private RemarkCommandParser parser = new RemarkCommandParser();
 
     @Test
@@ -236,6 +318,24 @@ public class RemarkCommandParserTest {
 
         // nothing at all
         assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
+    }
+
+    @Test
+    public void parseArgumentsNoIndexFailueThrowsParseException() throws Exception {
+        assertTrue(null == RemarkCommandParser.parseArguments("rmk", "no index here!"));
+        assertTrue(null == RemarkCommandParser.parseArguments("remark", "none here either!"));
+    }
+
+    @Test
+    public void parseArgumentsIndexInArgumentsReturnsArguments() throws Exception {
+        assertEquals(" 1 r/someStringV4lue", RemarkCommandParser.parseArguments("rmk", "1someStringV4lue"));
+        assertEquals(" 8 r/someStringV4lue", RemarkCommandParser.parseArguments("rmk", "8someStringV4lue"));
+    }
+
+    @Test
+    public void parseArgumentsIndexInCommandWordReturnsArguments() throws Exception {
+        assertEquals(" 1 r/", RemarkCommandParser.parseArguments("rmk1", ""));
+        assertEquals(" 7 r/", RemarkCommandParser.parseArguments("rmk7", ""));
     }
 
 }
@@ -373,6 +473,71 @@ public class RemarkTest {
         this.person.setRemark(new Remark(remark));
         return this;
     }
+```
+###### \java\seedu\address\ui\PersonDetailPanelTest.java
+``` java
+public class PersonDetailPanelTest extends GuiUnitTest {
+
+    private PersonDetailPanel personDetailPanel;
+    private PersonDetailPanelHandle personDetailPanelHandle;
+
+    @Before
+    public void setUp() {
+        guiRobot.interact(() -> personDetailPanel = new PersonDetailPanel());
+        uiPartRule.setUiPart(personDetailPanel);
+
+        personDetailPanelHandle = new PersonDetailPanelHandle(getChildNode(personDetailPanel.getRoot(),
+                PersonDetailPanelHandle.PERSON_DETAIL_ID));
+    }
+
+    @Test
+    public void display() {
+
+        // changes in person selection reflect on panel
+        postNow(new PersonPanelSelectionChangedEvent(new PersonCard(ALICE, 0)));
+        assertPanelDisplaysPerson(ALICE, personDetailPanelHandle);
+
+        postNow(new PersonPanelSelectionChangedEvent(new PersonCard(BOB, 1)));
+        assertPanelDisplaysPerson(BOB, personDetailPanelHandle);
+
+        // changes made to person reflect on panel
+        postNow(new PersonEditedEvent(ALICE, INDEX_FIRST_PERSON));
+        assertPanelDisplaysPerson(ALICE, personDetailPanelHandle);
+
+        // panel is empty when list is cleared
+        postNow(new ClearPersonDetailPanelRequestEvent());
+        assertPanelDisplaysNothing(personDetailPanelHandle);
+    }
+
+    /**
+     * Asserts that {@code panel} displays the details of {@code expectedPerson}.
+     */
+    private void assertPanelDisplaysPerson(ReadOnlyPerson expectedPerson, PersonDetailPanelHandle panel) {
+        guiRobot.pauseForHuman();
+
+        assertEquals(expectedPerson.getName().toString(), panel.getName());
+        assertEquals(expectedPerson.getPhone().toString(), panel.getPhone());
+        assertEquals(expectedPerson.getAddress().toString(), panel.getAddress());
+        assertEquals(expectedPerson.getEmail().toString(), panel.getEmail());
+        assertEquals(expectedPerson.getRemark().toString(), panel.getRemark());
+
+        panel.updateTags();
+        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                panel.getTags());
+    }
+
+    /**
+     * Asserts that panel displays nothing.
+     */
+    private void assertPanelDisplaysNothing(PersonDetailPanelHandle panel) {
+        assertEquals("", panel.getName());
+        assertEquals("", panel.getPhone());
+        assertEquals("", panel.getAddress());
+        assertEquals("", panel.getEmail());
+        panel.updateTags();
+        assertEquals(panel.getEmptyTagList(), panel.getTags());
+    }
+}
 ```
 ###### \java\systemtests\EditCommandSystemTest.java
 ``` java

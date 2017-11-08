@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+//@@author jo-lyn
 /**
  * A handle for the person detail panel of the App
  */

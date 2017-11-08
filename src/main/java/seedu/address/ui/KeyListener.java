@@ -34,6 +34,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 
+//@@author jo-lyn
 /**
  * Listens to key events in the main window.
  */
@@ -53,7 +54,7 @@ public class KeyListener {
     }
 
     /**
-     * Handles key press events
+     * Handles key press events.
      */
     public void handleKeyPress() {
         mainNode.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -63,14 +64,15 @@ public class KeyListener {
             executeKeyEvent(event);
         });
     }
+    //@@author
 
     private boolean isNotScrolling(KeyEvent event) {
         return commandBox.isFocused() || !(event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN);
     }
 
+    //@@author jo-lyn
     /**
-     * Executes the key event.
-     * Matches {@code keyEvent} with non-command events before handling keys mapped to command words.
+     * Executes the {@code keyEvent} matching an assigned {@code KeyCombination}.
      */
     private void executeKeyEvent(KeyEvent keyEvent) {
 
@@ -139,6 +141,7 @@ public class KeyListener {
             commandBox.handleCommandInputChanged();
         }
     }
+    //@@author
 
     /**
      * display the full command format for commands that require multiple fields

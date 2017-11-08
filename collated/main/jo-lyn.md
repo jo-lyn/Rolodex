@@ -153,9 +153,9 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the RemarkCommand
      * and returns an RemarkCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseArgsException if the user input does not conform the expected format
      */
-    public RemarkCommand parse(String args) throws ParseException {
+    public RemarkCommand parse(String args) throws ParseArgsException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REMARK);
 
@@ -163,7 +163,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
+            throw new ParseArgsException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
         }
 
         String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
@@ -171,6 +171,24 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
         return new RemarkCommand(index, new Remark(remark));
     }
 
+    /**
+     * Returns a formatted argument string given unformatted
+     * {@code commandWord} and {@code rawArgs}
+     * or a {@code null} {@code String} if not formattable.
+     */
+    public static String parseArguments(String commandWord, String rawArgs) {
+        // Check if index (number) exists, removes Remark prefix (if it exists) and re-adds it before returning.
+        if (tryParseInt(rawArgs)) {
+            String indexString = Integer.toString(parseFirstInt(rawArgs));
+            String remark = parseRemoveFirstInt(rawArgs).trim().replace(PREFIX_REMARK.toString(), "");
+            return " " + indexString + " " + PREFIX_REMARK + remark;
+        } else if (tryParseInt(commandWord)) {
+            String indexString = Integer.toString(parseFirstInt(commandWord));
+            String remark = rawArgs.trim().replace(PREFIX_REMARK.toString(), "");
+            return " " + indexString + " " + PREFIX_REMARK + remark;
+        }
+        return null;
+    }
 }
 ```
 ###### \java\seedu\address\model\ModelManager.java
@@ -228,6 +246,10 @@ public class Remark {
     public Remark(String remark) {
         requireNonNull(remark);
         this.value = remark;
+    }
+
+    public boolean isEmpty() {
+        return this.value.isEmpty();
     }
 
     @Override
@@ -296,6 +318,111 @@ public class Remark {
         keyboardIcon.setImage(keyboardError);
     }
 ```
+###### \java\seedu\address\ui\KeyListener.java
+``` java
+/**
+ * Listens to key events in the main window.
+ */
+public class KeyListener {
+
+    private Region mainNode;
+    private PersonListPanel personListPanel;
+    private CommandBox commandBox;
+    private ResultDisplay resultDisplay;
+
+    public KeyListener(Region mainNode, ResultDisplay resultDisplay, PersonListPanel personListPanel,
+                       CommandBox commandBox) {
+        this.mainNode = mainNode;
+        this.personListPanel = personListPanel;
+        this.commandBox = commandBox;
+        this.resultDisplay = resultDisplay;
+    }
+
+    /**
+     * Handles key press events.
+     */
+    public void handleKeyPress() {
+        mainNode.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (isNotScrolling(event)) {
+                commandBox.processInput();
+            }
+            executeKeyEvent(event);
+        });
+    }
+```
+###### \java\seedu\address\ui\KeyListener.java
+``` java
+    /**
+     * Executes the {@code keyEvent} matching an assigned {@code KeyCombination}.
+     */
+    private void executeKeyEvent(KeyEvent keyEvent) {
+
+        if (KEY_COMBINATION_FOCUS_PERSON_LIST.match(keyEvent)
+                || KEY_COMBINATION_FOCUS_PERSON_LIST_ALT.match(keyEvent)) {
+            personListPanel.setFocus();
+
+        } else if (KEY_COMBINATION_FOCUS_COMMAND_BOX.match(keyEvent)) {
+            commandBox.setFocus();
+
+        } else if (KEY_COMBINATION_FOCUS_RESULT_DISPLAY.match(keyEvent)) {
+            resultDisplay.setFocus();
+
+        } else if (KEY_COMBINATION_DELETE_SELECTION.match(keyEvent)) {
+            deleteSelectedContact();
+
+        } else if (KEY_COMBINATION_CLEAR.match(keyEvent)) {
+            executeCommand(ClearCommand.COMMAND_WORD);
+
+        } else if (KEY_COMBINATION_HISTORY.match(keyEvent)) {
+            executeCommand(HistoryCommand.COMMAND_WORD);
+
+        } else if (KEY_COMBINATION_UNDO.match(keyEvent)) {
+            executeCommand(UndoCommand.COMMAND_WORD);
+
+        } else if (KEY_COMBINATION_REDO.match(keyEvent)) {
+            executeCommand(RedoCommand.COMMAND_WORD);
+
+        } else if (KEY_COMBINATION_LIST.match(keyEvent)) {
+            executeCommand(ListCommand.COMMAND_WORD);
+
+        } else if (KEY_COMBINATION_OPEN_FILE.match(keyEvent)) {
+            executeCommand(OpenCommand.COMMAND_WORD);
+
+        } else if (KEY_COMBINATION_NEW_FILE.match(keyEvent)) {
+            executeCommand(NewCommand.COMMAND_WORD);
+
+        } else if (KEY_COMBINATION_ADD.match(keyEvent)) {
+            displayCommandFormat(AddCommand.FORMAT);
+
+        } else if (KEY_COMBINATION_EDIT.match(keyEvent)) {
+            displayCommandFormat(EditCommand.FORMAT);
+
+        } else if (KEY_COMBINATION_FIND.match(keyEvent)) {
+            displayCommandFormat(FindCommand.FORMAT);
+
+        } else if (KEY_COMBINATION_SELECT.match(keyEvent)) {
+            displayCommandFormat(SelectCommand.FORMAT);
+
+        } else if (KEY_COMBINATION_DELETE.match(keyEvent)) {
+            displayCommandFormat(DeleteCommand.FORMAT);
+
+        } else {
+                // no key combination matches, do nothing
+        }
+    }
+
+    /**
+     * Handles execution of command
+     */
+    private void executeCommand(String command) {
+        if (command.equals(OpenCommand.COMMAND_WORD) || command.equals(NewCommand.COMMAND_WORD)) {
+            commandBox.replaceText(command + " ");
+        } else {
+            commandBox.replaceText(command);
+            commandBox.handleCommandInputChanged();
+        }
+    }
+```
 ###### \java\seedu\address\ui\MainWindow.java
 ``` java
     /**
@@ -305,11 +432,6 @@ public class Remark {
         KeyListener keyListener = new KeyListener(getRoot(), resultDisplay, personListPanel, commandBox);
         keyListener.handleKeyPress();
     }
-```
-###### \java\seedu\address\ui\MainWindow.java
-``` java
-        personListPanel = new PersonListPanel(logic.getLatestPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 ```
 ###### \java\seedu\address\ui\MainWindow.java
 ``` java
@@ -346,6 +468,159 @@ public class Remark {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 ```
+###### \java\seedu\address\ui\PersonDetailPanel.java
+``` java
+/**
+ * The Person Detail Panel of the App.
+ */
+public class PersonDetailPanel extends UiPart<Region> {
+
+    private static final String FXML = "PersonDetailPanel.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
+
+    @FXML
+    private Circle avatar; // TODO: Implement support for uploading picture from local directory
+    @FXML
+    private Label initial;
+    @FXML
+    private Label name;
+    @FXML
+    private Label phone;
+    @FXML
+    private Label address;
+    @FXML
+    private Label email;
+    @FXML
+    private Label remark;
+    @FXML
+    private FlowPane tagsWithBorder;
+    @FXML
+    private ImageView iconPhone;
+    @FXML
+    private ImageView iconEmail;
+    @FXML
+    private ImageView iconAddress;
+
+    public PersonDetailPanel() {
+        super(FXML);
+        showEmptyPanel();
+        registerAsAnEventHandler(this);
+    }
+
+    /**
+     * Displays an empty panel
+     */
+    private void showEmptyPanel() {
+        name.setText("");
+        phone.setText("");
+        email.setText("");
+        address.setText("");
+        remark.setText("");
+        initial.setText("");
+        tagsWithBorder.getChildren().clear();
+        avatar.setFill(TRANSPARENT);
+        hideIcons();
+    }
+
+    /**
+     * Shows the details of the person on the panel
+     */
+    private void showPersonDetails(ReadOnlyPerson person) {
+        setAvatar(person);
+        setTextFields(person);
+        setTags(person);
+        showIcons();
+    }
+
+    private void setAvatar(ReadOnlyPerson person) {
+        initial.setText(Avatar.getInitial(person.getName().fullName));
+        avatar.setFill(Paint.valueOf(Avatar.getColor(person.getName().fullName)));
+    }
+
+    private void setTextFields(ReadOnlyPerson person) {
+        name.setText(person.getName().toString());
+        phone.setText(person.getPhone().toString());
+        address.setText(person.getAddress().toString());
+        email.setText(person.getEmail().toString());
+        setRemark(person);
+    }
+
+    private void setTags(ReadOnlyPerson person) {
+        tagsWithBorder.getChildren().clear();
+        person.getTags().forEach(tag -> tagsWithBorder.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private void setRemark(ReadOnlyPerson person) {
+        remark.setText(person.getRemark().toString());
+
+        if (person.getRemark().isEmpty()) {
+            remark.setManaged(false);
+        } else {
+            remark.setManaged(true);
+        }
+    }
+
+    private void hideIcons() {
+        iconPhone.setVisible(false);
+        iconEmail.setVisible(false);
+        iconAddress.setVisible(false);
+    }
+
+    private void showIcons() {
+        iconPhone.setVisible(true);
+        iconEmail.setVisible(true);
+        iconAddress.setVisible(true);
+    }
+
+    /**
+     * Shows person details on the panel when a person is selected
+     */
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showPersonDetails(event.getNewSelection().person);
+    }
+
+    /**
+     * Updates the panel when the details of the selected person is changed
+     */
+    @Subscribe
+    private void handlePersonDetailsChangedEvent(PersonEditedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showPersonDetails(event.editedPerson);
+    }
+
+    @Subscribe
+    private void handlePersonListClearedEvent(ClearPersonDetailPanelRequestEvent event) {
+        showEmptyPanel();
+    }
+}
+```
+###### \java\seedu\address\ui\util\Avatar.java
+``` java
+/**
+ * Stores the information of all person avatars
+ */
+public class Avatar {
+    private static HashMap<String, String> avatarColors = new HashMap<>();
+    private static Random random = new Random();
+    private static String[] colors = ColorsUtil.getColors();
+
+    private Avatar() {}
+
+    public static String getColor(String name) {
+        if (!avatarColors.containsKey(name)) {
+            avatarColors.put(name, colors[random.nextInt(colors.length)]);
+        }
+        return avatarColors.get(name);
+    }
+
+    public static String getInitial(String name) {
+        return name.substring(0, 1);
+    }
+}
+```
 ###### \java\seedu\address\ui\util\ColorsUtil.java
 ``` java
 /**
@@ -364,5 +639,52 @@ public class ColorsUtil {
     public static String[] getColors() {
         return new String[] { RED, YELLOW, BLUE, TEAL, GREEN, PURPLE };
     }
+}
+```
+###### \java\seedu\address\ui\util\KeyListenerUtil.java
+``` java
+/**
+ * A utility class for mapping key events.
+ */
+public class KeyListenerUtil {
+
+    public static final KeyCombination KEY_COMBINATION_FOCUS_PERSON_LIST = KeyCombination.valueOf("Esc");
+    public static final KeyCombination KEY_COMBINATION_FOCUS_PERSON_LIST_ALT = KeyCombination.valueOf("Ctrl+Left");
+    public static final KeyCombination KEY_COMBINATION_FOCUS_COMMAND_BOX = KeyCombination.valueOf("Enter");
+    public static final KeyCombination KEY_COMBINATION_FOCUS_RESULT_DISPLAY = KeyCombination.valueOf("Ctrl+Right");
+    public static final KeyCombination KEY_COMBINATION_DELETE_SELECTION = KeyCombination.valueOf("Ctrl+D");
+    public static final KeyCombination KEY_COMBINATION_CLEAR = KeyCombination.valueOf(ClearCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_HISTORY = KeyCombination.valueOf(HistoryCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_UNDO = KeyCombination.valueOf(UndoCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_REDO = KeyCombination.valueOf(RedoCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_LIST = KeyCombination.valueOf(ListCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_OPEN_FILE = KeyCombination.valueOf(OpenCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_NEW_FILE = KeyCombination.valueOf(NewCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_ADD = KeyCombination.valueOf(AddCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_EDIT = KeyCombination.valueOf(EditCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_FIND = KeyCombination.valueOf(FindCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_SELECT = KeyCombination.valueOf(SelectCommand.COMMAND_HOTKEY);
+    public static final KeyCombination KEY_COMBINATION_DELETE = KeyCombination.valueOf(DeleteCommand.COMMAND_HOTKEY);
+
+    public static final Set<KeyCombination> POSSIBLE_KEY_COMBINATIONS =
+            new HashSet<>(Arrays.asList(
+                    KEY_COMBINATION_FOCUS_PERSON_LIST,
+                    KEY_COMBINATION_FOCUS_PERSON_LIST_ALT,
+                    KEY_COMBINATION_FOCUS_COMMAND_BOX,
+                    KEY_COMBINATION_FOCUS_RESULT_DISPLAY,
+                    KEY_COMBINATION_DELETE_SELECTION,
+                    KEY_COMBINATION_CLEAR,
+                    KEY_COMBINATION_HISTORY,
+                    KEY_COMBINATION_UNDO,
+                    KEY_COMBINATION_REDO,
+                    KEY_COMBINATION_LIST,
+                    KEY_COMBINATION_OPEN_FILE,
+                    KEY_COMBINATION_NEW_FILE,
+                    KEY_COMBINATION_ADD,
+                    KEY_COMBINATION_EDIT,
+                    KEY_COMBINATION_FIND,
+                    KEY_COMBINATION_SELECT,
+                    KEY_COMBINATION_DELETE
+            ));
 }
 ```

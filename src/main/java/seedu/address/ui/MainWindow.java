@@ -145,10 +145,8 @@ public class MainWindow extends UiPart<Region> {
      */
     void fillInnerParts() {
 
-        //@@author jo-lyn
         personListPanel = new PersonListPanel(logic.getLatestPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        //@@author
 
         PersonDetailPanel personDetailPanel = new PersonDetailPanel();
         personDetailPlaceholder.getChildren().add(personDetailPanel.getRoot());

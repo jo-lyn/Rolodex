@@ -3,6 +3,7 @@ package seedu.address.ui.util;
 import java.util.HashMap;
 import java.util.Random;
 
+//@@author jo-lyn
 /**
  * Stores the information of all person avatars
  */
