@@ -69,7 +69,7 @@ public class PersonDetailPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that panel displays nothing.
+     * Asserts that {@code panel} displays nothing.
      */
     private void assertPanelDisplaysNothing(PersonDetailPanelHandle panel) {
         assertEquals("", panel.getName());

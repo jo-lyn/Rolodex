@@ -74,7 +74,7 @@ public class AddCommand extends UndoableCommand {
 
     //@@author jo-lyn
     /**
-     * Jumps to the {@code ReadOnlyPerson addedPerson} in the person list.
+     * Jumps to the {@code addedPerson} in the person list.
      */
     private void jumpToAddedPerson(ReadOnlyPerson addedPerson) {
         EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getIndex(addedPerson)));
