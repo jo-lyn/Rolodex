@@ -6,7 +6,7 @@ import java.util.Random;
 
 //@@author jo-lyn
 /**
- * Stores the information of all person avatars
+ * Stores the information of all person avatars.
  */
 public class Avatar {
     private static HashMap<String, String> avatarColors = new HashMap<>();
@@ -34,6 +34,8 @@ public class Avatar {
 
     /**
      * Generates a new color with a random offset from {@code defaultColor}.
+     *
+     * @return The new color in hex string format
      */
     private static String generateNewColor(Color defaultColor) {
         int r = defaultColor.getRed();
