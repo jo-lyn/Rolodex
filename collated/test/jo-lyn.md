@@ -2,7 +2,7 @@
 ###### \java\guitests\guihandles\PersonDetailPanelHandle.java
 ``` java
 /**
- * A handle for the person detail panel of the App
+ * A handle for the person detail panel of the App.
  */
 public class PersonDetailPanelHandle extends NodeHandle<Node> {
     public static final String PERSON_DETAIL_ID = "#personDetailPanel";
@@ -59,7 +59,7 @@ public class PersonDetailPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Update tags in person detail panel
+     * Update tags in person detail panel.
      */
     public void updateTags() {
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
