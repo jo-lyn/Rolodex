@@ -94,7 +94,7 @@ public class RemarkCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of rolodex
+     * but smaller than size of rolodex.
      */
     @Test
     public void executeInvalidPersonIndexFilteredListFailure() throws Exception {
@@ -133,7 +133,7 @@ public class RemarkCommandTest {
     }
 
     /**
-     * Returns an {@code RemarkCommand} with parameters {@code index} and {@code remark}
+     * Returns an {@code RemarkCommand} with parameters {@code index} and {@code remark}.
      */
     private RemarkCommand prepareCommand(Index index, String remark) {
         RemarkCommand remarkCommand = new RemarkCommand(index, new Remark(remark));
