@@ -41,15 +41,15 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        initialisePerson(person, displayedIndex);
+        initializePerson(person, displayedIndex);
         bindListeners(person);
     }
 
     //@@author jo-lyn
     /**
-     * Initialise the person card with the person details.
+     * Initializes the person card with the person details.
      */
-    private void initialisePerson(ReadOnlyPerson person, int displayedIndex) {
+    private void initializePerson(ReadOnlyPerson person, int displayedIndex) {
         id.setText(Integer.toString(displayedIndex));
         setAvatar(person);
         setTags(person);

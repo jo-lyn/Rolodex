@@ -101,7 +101,7 @@ public class EditCommand extends UndoableCommand {
 
     //@@author jo-lyn
     /**
-     * Raise a person edited event to update display.
+     * Raises a person edited event to update display.
      */
     private void raisePersonEditedEvent(ReadOnlyPerson editedPerson) {
         EventsCenter.getInstance().post(new PersonEditedEvent(editedPerson, model.getIndex(editedPerson)));
