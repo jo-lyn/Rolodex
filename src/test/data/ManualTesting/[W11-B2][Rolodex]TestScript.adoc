@@ -70,6 +70,109 @@ Expected Behaviour
 * Contact is automatically displayed on the bottom right panel
 * Name, phone, email and address fields are compulsory
 
+'''''
+
+1.  Type
+`+ n/Alice Ken p/91234567 e/alice@gmail.com a/700, Alice Street`
+2.  Press `Enter`
+
+[[expected-behaviour-2]]
+Expected Behaviour
+++++++++++++++++++
+
+* New contact with entered particulars is added to Rolodex
+* Contact is automatically displayed on the bottom right panel
+* Name, phone, email and address fields are compulsory
+
+[[drop-down-list]]
+Drop-Down List
+^^^^^^^^^^^^^
+
+1.  Type `a`
+2.  Press `Enter` or click to select the add option in the drop-down list
+3.  Press `Space`
+Type n/Alice Ken p/91234567 e/alice@gmail.com a/900, Alice Street
+Press `Enter`
+
+[[expected-behaviour-3]]
+
+Expected Behaviour
+++++++++++++++++++
+
+* New contact with entered particulars is added to Rolodex
+* Contact is automatically displayed on the bottom right panel
+* Name, phone, email and address fields are compulsory
+
+[[invalid-command-suggestion]]
+
+Invalid Command Suggestion
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1.  Type `add alice@gmail.com Alice Ken 900, Alice Street 91234567`
+2.  Press Enter
+3.  Type `y` or `yes` or `k` or `ok` or `yea` or `yeah` when prompted ‘Did you mean add n/Alice Ken p/91234567 e/alice@gmail.com a/900, Alice Street?’
+4.  Press `Enter`
+
+[[expected-behaviour-4]]
+
+Expected Behaviour
+++++++++++++++++++
+
+* New contact with entered particulars is added to Rolodex
+* Contact is automatically displayed on the bottom right panel
+* Name, phone, email and address fields are compulsory
+
+[[keyboard-shortcut]]
+Keyboard Shortcut
+^^^^^^^^^^^^^^^^^
+
+1.  Press `Ctrl` + `+`
+2.  Type `Alice Ken` and press `Tab`
+3.  Type `91234567` and press `Tab`
+4.  Type `alice@gmail.com` and press `Tab`
+5.  Type `900, Alice Street`
+6.  Press `Enter`
+
+[[expected-behaviour-5]]
+Expected Behaviour
+++++++++++++++++++
+
+* New contact with entered particulars is added to Rolodex
+* Contact is automatically displayed on the bottom right panel
+* Name, phone, email and address fields are compulsory
+
+
+[[delete-command]]
+Delete Command
+~~~~~~~~~~~~~~
+
+[[basic-functionality]]
+Basic Functionality
+^^^^^^^^^^^^^^^^^^^
+1. Type `delete 1`
+2. Press `Enter`
+
+[[expected-behaviour-1]]
+Expected Behaviour
+++++++++++++++++++
+
+* First contact is deleted from Rolodex
+
+[[abbreviations]]
+Abbreviations
+^^^^^^^^^^^^^
+
+1. Type `d 2`
+2. Press `Enter`
+
+[[expected-behaviour-2]]
+Expected Behaviour
+++++++++++++++++++
+
+* Second contact is deleted from Rolodex
+
+''''''
+
 1.  Type `- 3`
 2.  Press `Enter`
 
