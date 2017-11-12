@@ -451,6 +451,8 @@ Invalid Command Suggestion
 3.  Type `y` or `yes` or `k` or `ok` or `yea` or `yeah` when prompted
 `Did you mean rmk 1 r/Hates dancing?'
 4.  Press `Enter`
+5.  Type `select 1`
+6.  Press `Enter`
 
 [[expected-behaviour-21]]
 Expected Behaviour
