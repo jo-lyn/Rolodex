@@ -67,7 +67,7 @@ public class KeyListenerTest extends RolodexGuiTest {
     }
 
     @Test
-    public void executeKeyEventForOpenCommand() {
+    public void executeKeyEventForOpenRolodexCommand() {
         KeyCodeCombination openKeyCode = (KeyCodeCombination) KeyCombination.valueOf("Ctrl+O");
 
         guiRobot.push(openKeyCode);
