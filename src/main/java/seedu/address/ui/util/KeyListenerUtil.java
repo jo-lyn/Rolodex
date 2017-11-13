@@ -68,9 +68,10 @@ public class KeyListenerUtil {
                     KEY_COMBINATION_UNDO,
                     KEY_COMBINATION_REDO,
                     KEY_COMBINATION_LIST,
-                    //@@author
                     KEY_COMBINATION_OPEN_FILE,
                     KEY_COMBINATION_NEW_FILE,
+                    //@@author
+                    
                     KEY_COMBINATION_ADD,
                     KEY_COMBINATION_EDIT,
                     KEY_COMBINATION_FIND,

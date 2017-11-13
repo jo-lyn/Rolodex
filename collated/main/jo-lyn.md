@@ -706,6 +706,8 @@ public class KeyListenerUtil {
                     KEY_COMBINATION_UNDO,
                     KEY_COMBINATION_REDO,
                     KEY_COMBINATION_LIST,
+                    KEY_COMBINATION_OPEN_FILE,
+                    KEY_COMBINATION_NEW_FILE,
 ```
 ###### \resources\view\LightTheme.css
 ``` css
