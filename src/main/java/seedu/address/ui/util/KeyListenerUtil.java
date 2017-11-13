@@ -39,6 +39,8 @@ public class KeyListenerUtil {
     public static final KeyCombination KEY_COMBINATION_UNDO = KeyCombination.valueOf(UndoCommand.COMMAND_HOTKEY);
     public static final KeyCombination KEY_COMBINATION_REDO = KeyCombination.valueOf(RedoCommand.COMMAND_HOTKEY);
     public static final KeyCombination KEY_COMBINATION_LIST = KeyCombination.valueOf(ListCommand.COMMAND_HOTKEY);
+    //@@author
+
     public static final KeyCombination KEY_COMBINATION_OPEN_FILE =
             KeyCombination.valueOf(OpenRolodexCommand.COMMAND_HOTKEY);
     public static final KeyCombination KEY_COMBINATION_NEW_FILE =
@@ -53,6 +55,7 @@ public class KeyListenerUtil {
     public static final KeyCombination KEY_COMBINATION_REMARK = KeyCombination.valueOf(RemarkCommand.COMMAND_HOTKEY);
     public static final KeyCombination KEY_COMBINATION_EMAIL = KeyCombination.valueOf(EmailCommand.COMMAND_HOTKEY);
 
+    //@@author jo-lyn
     public static final Set<KeyCombination> POSSIBLE_KEY_COMBINATIONS =
             new HashSet<>(Arrays.asList(
                     KEY_COMBINATION_FOCUS_PERSON_LIST,
@@ -65,6 +68,7 @@ public class KeyListenerUtil {
                     KEY_COMBINATION_UNDO,
                     KEY_COMBINATION_REDO,
                     KEY_COMBINATION_LIST,
+                    //@@author
                     KEY_COMBINATION_OPEN_FILE,
                     KEY_COMBINATION_NEW_FILE,
                     KEY_COMBINATION_ADD,

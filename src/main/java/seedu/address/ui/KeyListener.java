@@ -109,6 +109,7 @@ public class KeyListener {
         } else if (KEY_COMBINATION_LIST.match(keyEvent)) {
             executeCommand(ListCommand.COMMAND_WORD);
 
+        //@@author
         } else if (KEY_COMBINATION_OPEN_FILE.match(keyEvent)) {
             displayCommandFormat(OpenRolodexCommand.COMMAND_WORD);
 
@@ -142,6 +143,7 @@ public class KeyListener {
         }
     }
 
+    //@@author jo-lyn
     /**
      * Executes command triggered by key presses.
      */
